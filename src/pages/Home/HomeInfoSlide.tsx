@@ -108,8 +108,8 @@ const HomeInfoSlide = ({ infos }: HomeInfoSlideProps) => {
             <div
               className="card"
               style={{
-                '--width': `${cardWidths[index] ?? 100}%`,
-                // width: `${cardWidths[index] ?? 100}%`,
+                // '--width': `${cardWidths[index] ?? 100}%`,
+                width: `${cardWidths[index] ?? 100}%`,
                 transition: 'width 0.3s ease-in-out',
               }}
             >
