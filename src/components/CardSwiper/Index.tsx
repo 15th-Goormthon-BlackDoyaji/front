@@ -80,7 +80,7 @@ const DetailModal: FC<IProps> = ({ data, selectedIndex }) => {
         }`}
       >
         <CloseIcon
-          className="absolute -top-7 right-12 flex items-center justify-center cursor-pointer z-[60]"
+          className="absolute -top-7 right-10 flex items-center justify-center cursor-pointer z-[60]"
           onClick={handleClose}
         />
         <Swiper itemList={items} defaultIdx={selectedIndex} />
