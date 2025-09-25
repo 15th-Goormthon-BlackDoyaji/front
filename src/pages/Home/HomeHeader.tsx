@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 const HomeHeader = () => {
   const navigate = useNavigate();
 
+  const userId = localStorage.getItem('userId');
+
   return (
     <HStack
       justifyContent="space-between"
@@ -15,11 +17,13 @@ const HomeHeader = () => {
       margin="$100"
     >
       <div>
-        <SearchIcon onClick={() => navigate('/')} />
+        <SearchIcon onClick={() => navigate('/search')} />
       </div>
-      <div>
-        <SubsIcon onClick={() => navigate('/subscription')} />
-      </div>
+      {!userId && (
+        <div>
+          <SubsIcon onClick={() => navigate('/subscription')} />
+        </div>
+      )}
     </HStack>
   );
 };

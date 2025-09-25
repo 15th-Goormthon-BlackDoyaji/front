@@ -6,7 +6,7 @@ import icon3 from '../../assets/icon3.svg';
 import icon4 from '../../assets/icon4.svg';
 import icon5 from '../../assets/icon5.svg';
 
-const MARQUEE_SPEED = 50;
+const MARQUEE_SPEED = 100;
 
 const MARQUEE_LIST_TOP = [
   { key: 'icon-1', component: <img src={icon1} /> },

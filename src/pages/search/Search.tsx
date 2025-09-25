@@ -102,7 +102,7 @@ const Search = () => {
   return (
     <VStack gap="$250" height="100%">
       <HStack padding="$150" justifyContent="space-between" gap="$075">
-        <Link to="/">
+        <Link to="/home">
           <ChevronLeftOutlineIcon size={32} />
         </Link>
         <TextInput

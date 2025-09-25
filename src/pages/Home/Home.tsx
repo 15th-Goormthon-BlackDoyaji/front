@@ -26,6 +26,7 @@ interface HomeProps {
 
 const Home = ({ infos }: HomeProps) => {
   const { selectedIndex } = useDetailModalStore();
+
   // Calculate days until deadline
   // const calculateDaysLeft = (dueDate: string) => {
   //   const today = new Date();

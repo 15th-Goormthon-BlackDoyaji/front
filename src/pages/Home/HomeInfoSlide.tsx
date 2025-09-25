@@ -24,8 +24,8 @@ const HomeInfoSlide = ({ infos }: HomeInfoSlideProps) => {
     const cardHeight = 112; // HomeInfoCard height including margin
 
     // 현재 화면에 보이는 영역의 카드 인덱스 범위 계산
-    const viewportTop = scrollTop;
-    const viewportBottom = scrollTop + containerHeight;
+    const viewportTop = scrollTop + 12;
+    const viewportBottom = scrollTop + containerHeight + 12;
 
     const opacities: number[] = [];
     const widths: number[] = [];
@@ -89,7 +89,7 @@ const HomeInfoSlide = ({ infos }: HomeInfoSlideProps) => {
   return (
     <VStack
       ref={containerRef}
-      className="h-[560px] overflow-y-auto"
+      className="h-[568px] overflow-y-auto"
       onScroll={handleScroll}
       style={{
         scrollbarWidth: 'none',

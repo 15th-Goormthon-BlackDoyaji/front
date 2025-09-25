@@ -40,7 +40,7 @@ export const GROUP_KEY_MAP: Record<string, keyof ServerPayload> = {
 export const VALUE_MAP: Record<keyof ServerPayload, Record<string, string>> = {
   education: {
     대학생: 'UNIVERSITY',
-    졸업생: 'GRADUATED',
+    졸업생: 'GRADUATION',
     상관없음: 'NULL',
   },
   region: {
