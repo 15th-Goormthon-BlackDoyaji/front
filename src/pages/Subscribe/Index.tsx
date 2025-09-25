@@ -2,7 +2,7 @@ import { useState, type FC } from 'react';
 import InterestSelectComponent from '../../components/Subscribe/InterestSelect';
 import InviteEmailComponent from '../../components/Subscribe/InviteEmail';
 import type { SelectedMap } from '../../components/Subscribe/TGroupInfo';
-import CompletedComponent from '../../components/Subscribe/Completed';
+import CompletedComponent from '../../components/Loading/Completed';
 
 type Step = 'select' | 'email' | 'completed';
 const SubscribePage: FC = () => {
@@ -24,11 +24,11 @@ const SubscribePage: FC = () => {
         <InviteEmailComponent
           selected={selected}
           onBack={() => setStep('select')}
-          onComplete={() => setStep('completed')} // ✅ 제출 성공 시 completed로 이동
+          onComplete={() => setStep('completed')}
         />
       )}
 
-      {step === 'completed' && <CompletedComponent onRestart={() => setStep('select')} />}
+      {step === 'completed' && <CompletedComponent />}
     </>
   );
 };
