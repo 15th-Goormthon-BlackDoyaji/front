@@ -4,7 +4,7 @@ import { mockData } from './detailmock';
 import type { TDetailCard } from '../../components/DetailCard/TDetailCard';
 import DetailModal from '../../components/CardSwiper/Index';
 
-function DetailModal1() {
+function DetailModalTest() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [items, setItems] = useState<TDetailCard[]>(mockData);
 
@@ -57,4 +57,4 @@ function DetailModal1() {
   );
 }
 
-export default DetailModal1;
+export default DetailModalTest;
