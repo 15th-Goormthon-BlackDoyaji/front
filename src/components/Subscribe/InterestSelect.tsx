@@ -1,0 +1,51 @@
+import { VStack, Button } from '@vapor-ui/core';
+import NavbarComponent from './Navbar';
+import OptionGroup from './OptionGroup';
+import { groupInfosData, type SelectedMap } from './TGroupInfo';
+import TitleAreaComponent from './TitleArea';
+import { useGroupSelections } from './useGroupSelections';
+import type { FC } from 'react';
+
+interface IProps {
+  onNext: (selected: SelectedMap) => void;
+}
+
+const InterestSelectComponent: FC<IProps> = ({ onNext }) => {
+  const { selected, toggle, allGroupsSelected } = useGroupSelections(groupInfosData);
+
+  return (
+    <VStack paddingX={'20px'} className="bg-[#F7F7FA] h-screen flex justify-between pb-10">
+      <VStack>
+        <NavbarComponent />
+        <TitleAreaComponent
+          title={
+            <span>
+              맞춤형 뉴스레터
+              <br /> 준비되셨나요?
+            </span>
+          }
+          description="관심사에 맞는 제주 뉴스레터를 추천해드릴게요."
+        />
+        <div className="mt-10">
+          {groupInfosData.map((group) => (
+            <OptionGroup
+              key={group.groupName}
+              groupName={group.groupName}
+              values={group.values}
+              multiple={group.multiple ?? false}
+              selectedValues={selected[group.groupName] || []}
+              onToggle={(value) => toggle(group.groupName, value)}
+            />
+          ))}
+        </div>
+      </VStack>
+      {allGroupsSelected && (
+        <Button size="xl" className="bg-black" onClick={() => onNext(selected)}>
+          다음으로
+        </Button>
+      )}
+    </VStack>
+  );
+};
+
+export default InterestSelectComponent;
