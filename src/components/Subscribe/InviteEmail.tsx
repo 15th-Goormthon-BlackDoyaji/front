@@ -72,7 +72,7 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
   return (
     <VStack paddingX="20px" className="bg-[#F7F7FA] h-screen flex justify-between pb-10">
       <VStack>
-        <NavbarComponent onClick={onBack} step={2} />
+        <NavbarComponent beforeOnClick={onBack} step={2} />
         <TitleAreaComponent
           title={
             <span>
@@ -96,11 +96,9 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
           </VStack>
         </div>
       </VStack>
-      {emailValid && (
-        <Button size="xl" className="bg-black" onClick={handleSubmit}>
-          구독하기
-        </Button>
-      )}
+      <Button size="xl" className="bg-black" onClick={handleSubmit} disabled={!emailValid}>
+        구독하기
+      </Button>
     </VStack>
   );
 };

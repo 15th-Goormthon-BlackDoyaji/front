@@ -1,21 +1,8 @@
 import type { FC } from 'react';
 
-interface IProps {
-  className?: string;
-  onClick?: () => void;
-}
-
-const BookMarkIcon: FC<IProps> = ({ className, onClick }) => {
+const TitleIcon: FC = () => {
   return (
-    <svg
-      className={className}
-      width="12"
-      height="16"
-      viewBox="0 0 12 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      onClick={() => onClick && onClick()}
-    >
+    <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
@@ -26,4 +13,4 @@ const BookMarkIcon: FC<IProps> = ({ className, onClick }) => {
   );
 };
 
-export default BookMarkIcon;
+export default TitleIcon;

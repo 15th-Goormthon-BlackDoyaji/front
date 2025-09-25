@@ -4,6 +4,7 @@ import OptionGroup from './OptionGroup';
 import { groupInfosData, type SelectedMap } from './TGroupInfo';
 import TitleAreaComponent from './TitleArea';
 import type { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   selected: SelectedMap;
@@ -13,10 +14,11 @@ interface IProps {
 }
 
 const InterestSelectComponent: FC<IProps> = ({ selected, toggle, allGroupsSelected, onNext }) => {
+  const navigate = useNavigate();
   return (
     <VStack paddingX={'20px'} className="bg-[#F7F7FA] h-screen flex justify-between pb-10">
       <VStack>
-        <NavbarComponent onClick={onNext} />
+        <NavbarComponent beforeOnClick={() => navigate('/')} />
         <TitleAreaComponent
           title={
             <span>
@@ -39,11 +41,9 @@ const InterestSelectComponent: FC<IProps> = ({ selected, toggle, allGroupsSelect
           ))}
         </div>
       </VStack>
-      {allGroupsSelected && (
-        <Button size="xl" className="bg-black" onClick={onNext}>
-          다음으로
-        </Button>
-      )}
+      <Button size="xl" className="bg-black" onClick={onNext} disabled={!allGroupsSelected}>
+        다음으로
+      </Button>
     </VStack>
   );
 };

@@ -149,7 +149,7 @@ const Home = () => {
 
   return (
     <>
-      <VStack className="h-full">
+      <VStack className="h-full bg-[#F7F7FA]">
         <HomeHeader />
 
         <HomeTitle />
