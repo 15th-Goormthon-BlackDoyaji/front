@@ -27,6 +27,7 @@ const DetailModal: FC<IProps> = ({ data, selectedIndex }) => {
         summary={item.summary}
         url={item.url}
         color={item.detailColor}
+        hasHeart={true}
       />
     );
   });

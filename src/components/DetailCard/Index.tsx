@@ -1,11 +1,12 @@
-import { type FC } from 'react';
+import { useState, type FC } from 'react';
 import AiIcon from './AiIcon';
 import { Box, Button, Text, VStack } from '@vapor-ui/core';
 import BadgeIcon from './Badge';
 import TextArea from './TextArea';
 import type { InfoItem } from '../../pages/Home/Home';
 
-const DetailCard: FC<InfoItem> = ({ title, url, due_date, summary, color }) => {
+const DetailCard: FC<InfoItem> = ({ title, url, due_date, summary, color, badgeColor, hasHeart=false }) => {
+  const [heart, setHeart] = useState(false);
   return (
     <VStack
       padding="$250"
@@ -16,7 +17,13 @@ const DetailCard: FC<InfoItem> = ({ title, url, due_date, summary, color }) => {
       borderRadius="$600"
     >
       <VStack gap="$150" alignItems="start">
-        <BadgeIcon color={color} due_date={due_date} />
+        <BadgeIcon
+          color={badgeColor}
+          due_date={dueDate}
+          hasHeart={hasHeart}
+          heartFilled={heart}
+          onHeartChange={setHeart}
+        />
         <Text
           typography="heading5"
           style={{ color: color }}

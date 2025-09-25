@@ -22,38 +22,38 @@ export const groupInfosDataRequired: GroupInfo[] = [
 
 // 서버 스키마
 export type ServerPayload = {
-  EDUCATION?: ('UNIVERSITY' | 'GRADUATED')[];
-  REGION?: ('JEJU' | 'SEOGWIPO')[];
-  RESIDENCY?: ('NATIVE' | 'MIGRATION')[];
-  INTEREST?: ('EMPLOYMENT' | 'CERTIFICATION' | 'SUBSIDY')[];
+  education?: ('UNIVERSITY' | 'GRADUATED')[];
+  region?: ('JEJU' | 'SEOGWIPO')[];
+  residency?: ('NATIVE' | 'MIGRATION')[];
+  interest?: ('EMPLOYMENT' | 'CERTIFICATION' | 'SUBSIDY')[];
 };
 
 // 그룹명(한글) → 서버 키
 export const GROUP_KEY_MAP: Record<string, keyof ServerPayload> = {
-  학력: 'EDUCATION',
-  지역: 'REGION',
-  거주: 'RESIDENCY',
-  관심사: 'INTEREST',
+  학력: 'education',
+  지역: 'region',
+  거주: 'residency',
+  관심사: 'interest',
 };
 
 // 각 그룹별 값 매핑 (한글 → ENUM)
 export const VALUE_MAP: Record<keyof ServerPayload, Record<string, string>> = {
-  EDUCATION: {
+  education: {
     대학생: 'UNIVERSITY',
     졸업생: 'GRADUATED',
     상관없음: 'NULL',
   },
-  REGION: {
+  region: {
     제주: 'JEJU',
     서귀포: 'SEOGWIPO',
     상관없음: 'NULL',
   },
-  RESIDENCY: {
+  residency: {
     제주도민: 'NATIVE',
     이주민: 'MIGRATION',
     상관없음: 'NULL',
   },
-  INTEREST: {
+  interest: {
     '취업/일자리': 'EMPLOYMENT',
     자격증: 'CERTIFICATION',
     지원금: 'SUBSIDY',

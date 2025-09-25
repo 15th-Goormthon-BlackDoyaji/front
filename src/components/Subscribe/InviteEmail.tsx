@@ -1,8 +1,9 @@
-import { useState, type FC, type ChangeEvent } from 'react';
+import { useState, type FC, type ChangeEvent, useMemo } from 'react';
 import NavbarComponent from './Navbar';
 import TitleAreaComponent from './TitleArea';
 import { Button, VStack, Text, TextInput } from '@vapor-ui/core';
 import { GROUP_KEY_MAP, VALUE_MAP, type SelectedMap } from './TGroupInfo';
+import { useUserStore } from '../../store/userStore';
 
 export function mapSelectionsToServer(selected: Record<string, string[]>) {
   const result: Record<string, string | string[]> = {};
@@ -33,7 +34,8 @@ interface IProps {
 const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
   const [email, setEmail] = useState('');
   const emailValid = /\S+@\S+\.\S+/.test(email.trim());
-  const filters = mapSelectionsToServer(selected);
+  const filters = useMemo(() => mapSelectionsToServer(selected), [selected]);
+  const setUserId = useUserStore((s) => s.setUserId);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -53,7 +55,10 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
           body: JSON.stringify(body),
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        await res.json().catch(() => ({}));
+        const json = await res.json().catch(() => ({}));
+        if (json && json.userId) {
+          setUserId(json.userId);
+        }
         onComplete();
         console.log('subscribe success');
       }
@@ -67,16 +72,16 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
   return (
     <VStack paddingX="20px" className="bg-[#F7F7FA] h-screen flex justify-between pb-10">
       <VStack>
-        <NavbarComponent onClick={onBack} step={2} />
+        <NavbarComponent beforeOnClick={onBack} step={2} />
         <TitleAreaComponent
           title={
             <span>
               뉴스레터를 받을
               <br />
-              이메일을 입력해주세요
+              이메일을 입력해주세요.
             </span>
           }
-          description="매우 중요한 교육 소식을 한눈에 확인할 수 있습니다."
+          description="매주, 나에게 딱 맞는 교육 프로그램을 받아보세요."
         />
 
         <div className="mt-10">
@@ -91,11 +96,9 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
           </VStack>
         </div>
       </VStack>
-      {emailValid && (
-        <Button size="xl" className="bg-black" onClick={handleSubmit}>
-          구독하기
-        </Button>
-      )}
+      <Button size="xl" className="bg-black" onClick={handleSubmit} disabled={!emailValid}>
+        구독하기
+      </Button>
     </VStack>
   );
 };

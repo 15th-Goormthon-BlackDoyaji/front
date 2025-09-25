@@ -3,28 +3,30 @@ import NavbarComponent from './Navbar';
 import OptionGroup from './OptionGroup';
 import { groupInfosData, type SelectedMap } from './TGroupInfo';
 import TitleAreaComponent from './TitleArea';
-import { useGroupSelections } from './useGroupSelections';
 import type { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
-  onNext: (selected: SelectedMap) => void;
+  selected: SelectedMap;
+  toggle: (groupName: string, value: string) => void;
+  allGroupsSelected: boolean;
+  onNext: () => void;
 }
 
-const InterestSelectComponent: FC<IProps> = ({ onNext }) => {
-  const { selected, toggle, allGroupsSelected } = useGroupSelections(groupInfosData);
-
+const InterestSelectComponent: FC<IProps> = ({ selected, toggle, allGroupsSelected, onNext }) => {
+  const navigate = useNavigate();
   return (
     <VStack paddingX={'20px'} className="bg-[#F7F7FA] h-screen flex justify-between pb-10">
       <VStack>
-        <NavbarComponent />
+        <NavbarComponent beforeOnClick={() => navigate('/')} />
         <TitleAreaComponent
           title={
             <span>
-              맞춤형 뉴스레터
+              맞춤형 뉴스레터,
               <br /> 준비되셨나요?
             </span>
           }
-          description="관심사에 맞는 제주 뉴스레터를 추천해드릴게요."
+          description="기준과 관심사에 맞춰 전해드립니다."
         />
         <div className="mt-10">
           {groupInfosData.map((group) => (
@@ -39,11 +41,9 @@ const InterestSelectComponent: FC<IProps> = ({ onNext }) => {
           ))}
         </div>
       </VStack>
-      {allGroupsSelected && (
-        <Button size="xl" className="bg-black" onClick={() => onNext(selected)}>
-          다음으로
-        </Button>
-      )}
+      <Button size="xl" className="bg-black" onClick={onNext} disabled={!allGroupsSelected}>
+        다음으로
+      </Button>
     </VStack>
   );
 };

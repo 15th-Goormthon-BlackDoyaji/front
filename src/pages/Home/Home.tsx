@@ -5,6 +5,7 @@ import HomeTitle from './HomeTitle';
 import HomeInfoSlide from './HomeInfoSlide';
 import DetailModal from '../../components/CardSwiper/Index';
 import { useDetailModalStore } from '../../store/useDetailModalStore';
+import { useUserStore } from '../../store/userStore';
 
 export interface InfoItem {
   id: number;
@@ -15,6 +16,7 @@ export interface InfoItem {
   deadline?: string;
   color?: string;
   badgeColor?: string;
+  hasHeart?: boolean;
   detailColor?: string;
 }
 
@@ -24,7 +26,6 @@ interface HomeProps {
 
 const Home = ({ infos }: HomeProps) => {
   const { selectedIndex } = useDetailModalStore();
-  // const [infos, setInfos] = useState<InfoItem[]>([]);
   // Calculate days until deadline
   // const calculateDaysLeft = (dueDate: string) => {
   //   const today = new Date();
@@ -129,7 +130,7 @@ const Home = ({ infos }: HomeProps) => {
 
   return (
     <>
-      <VStack className="h-full">
+      <VStack className="h-full bg-[#F7F7FA]">
         <HomeHeader />
 
         <HomeTitle />
