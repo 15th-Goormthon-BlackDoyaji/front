@@ -10,7 +10,7 @@ export const groupInfosData: GroupInfo[] = [
   { groupName: '지역', values: ['제주', '서귀포', '상관없음'] },
   { groupName: '학력', values: ['대학생', '졸업생', '상관없음'] },
   { groupName: '거주', values: ['제주도민', '이주민', '상관없음'] },
-  { groupName: '관심사', values: ['취업/일자리', '자격증', '지원금'], multiple: true },
+  { groupName: '관심사', values: ['취업/일자리', '자격증', '지원금'] },
 ];
 
 // 서버 스키마

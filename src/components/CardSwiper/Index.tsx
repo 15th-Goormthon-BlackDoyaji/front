@@ -27,6 +27,7 @@ const DetailModal: FC<IProps> = ({ data, selectedIndex, onClose, isOpen }) => {
         url={item.url}
         color={item.color?.slice(4, 11)}
         badgeColor={item.badgeColor?.slice(4, 11)}
+        hasHeart={true}
       />
     );
   });

@@ -1,13 +1,24 @@
-import { Badge } from '@vapor-ui/core';
+import { Badge, HStack } from '@vapor-ui/core';
 import type { FC } from 'react';
+import HeartIcon from './HeartIcon';
 
 interface IProps {
   className?: string;
   color?: string;
   due_date?: string;
+  hasHeart?: boolean;
+  heartFilled?: boolean;
+  onHeartChange?: (next: boolean) => void;
 }
 
-const BadgeIcon: FC<IProps> = ({ className, color, due_date }) => {
+const BadgeIcon: FC<IProps> = ({
+  className,
+  color,
+  due_date,
+  hasHeart = false,
+  heartFilled = false,
+  onHeartChange,
+}) => {
   if (!due_date) {
     return (
       <Badge size="sm" style={{ background: color, color: 'white' }} className={className}>
@@ -28,9 +39,12 @@ const BadgeIcon: FC<IProps> = ({ className, color, due_date }) => {
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   return (
-    <Badge size="sm" style={{ background: color, color: 'white' }} className={className}>
-      마감 {diffDays}일 전
-    </Badge>
+    <HStack justifyContent="space-between" width="100%">
+      <Badge size="sm" style={{ background: color, color: 'white' }} className={className}>
+        마감 {diffDays}일 전
+      </Badge>
+      {hasHeart && <HeartIcon filled={heartFilled} onChange={onHeartChange} color={color} />}
+    </HStack>
   );
 };
 
