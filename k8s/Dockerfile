@@ -1,5 +1,5 @@
 # 1단계: 빌드
-FROM node:18 AS build
+FROM node:20.19 as build
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Nginx 설정 덮어쓰기 (필요 시)
-COPY nginx.conf /etc/nginx/nginx.conf
+#COPY nginx.conf /etc/nginx/nginx.conf
 
 # React Vite 빌드 결과물 복사
 COPY --from=build /app/dist /usr/share/nginx/html
