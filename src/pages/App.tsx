@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@vapor-ui/core';
-import DetailModal from './DetailModal';
+import DetailModal from '../components/CardSwiper/Index';
 import { mockData } from './DetailModal/detailmock';
 import type { TDetailCard } from '../components/DetailCard/TDetailCard';
 

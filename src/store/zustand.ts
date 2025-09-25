@@ -21,5 +21,5 @@ export const createStore = <T extends object>(
     devtools(immer(initializer), {
       name,
       enabled: import.meta.env.DEV,
-    })re
+    })
   );
