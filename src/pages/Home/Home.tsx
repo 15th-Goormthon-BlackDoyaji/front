@@ -15,6 +15,7 @@ export interface InfoItem {
   deadline?: string;
   color?: string;
   badgeColor?: string;
+  hasHeart?: boolean;
 }
 
 const COLORS = [
