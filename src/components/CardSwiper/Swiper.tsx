@@ -4,7 +4,9 @@ import { Pagination } from 'swiper/modules';
 import type { Swiper as SwiperInstance } from 'swiper';
 
 // Swiper 스타일 import
+// @ts-ignore: swiper css 모듈 타입 선언 없음
 import 'swiper/css';
+// @ts-ignore: swiper pagination css 모듈 타입 선언 없음
 import 'swiper/css/pagination';
 import './Swiper.css';
 
