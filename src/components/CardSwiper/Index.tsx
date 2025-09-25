@@ -3,29 +3,30 @@ import { type FC, useEffect, useCallback } from 'react';
 import DetailCard from '../DetailCard/Index';
 import Swiper from './Swiper';
 import CloseIcon from '../DetailCard/CloseIcon';
-import type { TDetailCard } from '../DetailCard/TDetailCard';
+import type { InfoItem } from '../../pages/Home/Home';
 
 interface IProps {
-  data: TDetailCard[];
+  data: InfoItem[];
   selectedIndex?: number;
   isOpen?: boolean;
   onClose?: () => void;
 }
-const colors_chip = ['#4CAF50', '#FF7E35', '#FFF47F', '#2196F3'];
 
-const DetailModal: FC<IProps> = ({ data, selectedIndex = 0, onClose }) => {
+const DetailModal: FC<IProps> = ({ data, selectedIndex, onClose, isOpen }) => {
   // data가 없거나 빈 배열이면 null 반환
   if (!data || !data.length) return null;
 
-  const items = data.map((item: TDetailCard, idx: number) => {
+  const items = data.map((item: InfoItem, idx: number) => {
     return (
       <DetailCard
         key={idx}
+        id={item.id}
         title={item.title}
-        due_date={item.due_date}
+        dueDate={item.dueDate}
         summary={item.summary}
         url={item.url}
-        color={item.color ?? colors_chip[Math.floor(Math.random() * colors_chip.length)]}
+        color={item.color?.slice(4, 11)}
+        badgeColor={item.badgeColor?.slice(4, 11)}
       />
     );
   });
@@ -42,6 +43,8 @@ const DetailModal: FC<IProps> = ({ data, selectedIndex = 0, onClose }) => {
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [handleClose]);
+
+  if (!isOpen) return null;
 
   return (
     <div

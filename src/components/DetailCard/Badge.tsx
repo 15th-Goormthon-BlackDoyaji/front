@@ -15,7 +15,6 @@ const BadgeIcon: FC<IProps> = ({ className, color, due_date }) => {
       </Badge>
     );
   }
-  color = color || '#FF7E35';
 
   const today = new Date();
   today.setHours(0, 0, 0, 0); // 자정으로 맞추기 (시간 차이 방지)

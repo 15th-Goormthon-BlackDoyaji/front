@@ -16,7 +16,7 @@ interface IProps {
   onSlideChange?: (activeIndex: number) => void;
 }
 
-const SwiperComponent: FC<IProps> = ({ itemList, defaultIdx = 0, onSlideChange }) => {
+const SwiperComponent: FC<IProps> = ({ itemList, defaultIdx, onSlideChange }) => {
   return (
     <div
       style={{
