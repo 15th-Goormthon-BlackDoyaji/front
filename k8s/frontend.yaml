@@ -16,7 +16,7 @@ spec:
       - name: frontend
         image: 837126493345.dkr.ecr.ap-northeast-2.amazonaws.com/goormthon-3/frontend:latest #FIXME:
         ports:
-        - containerPort: 3000
+        - containerPort: 80
         volumeMounts:
         - name: config-volume
           mountPath: /app/config
@@ -35,4 +35,4 @@ spec:
     app: frontend
   ports:
   - port: 80
-    targetPort: 3000
+    targetPort: 80
