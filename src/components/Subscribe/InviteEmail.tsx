@@ -1,8 +1,9 @@
-import { useState, type FC, type ChangeEvent } from 'react';
+import { useState, type FC, type ChangeEvent, useMemo } from 'react';
 import NavbarComponent from './Navbar';
 import TitleAreaComponent from './TitleArea';
 import { Button, VStack, Text, TextInput } from '@vapor-ui/core';
 import { GROUP_KEY_MAP, VALUE_MAP, type SelectedMap } from './TGroupInfo';
+import { useUserStore } from '../../store/userStore';
 
 function mapSelectionsToServer(selected: Record<string, string[]>) {
   const result: Record<string, string | string[]> = {};
@@ -33,7 +34,8 @@ interface IProps {
 const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
   const [email, setEmail] = useState('');
   const emailValid = /\S+@\S+\.\S+/.test(email.trim());
-  const filters = mapSelectionsToServer(selected);
+  const filters = useMemo(() => mapSelectionsToServer(selected), [selected]);
+  const setUserId = useUserStore((s) => s.setUserId);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -53,7 +55,10 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
           body: JSON.stringify(body),
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        await res.json().catch(() => ({}));
+        const json = await res.json().catch(() => ({}));
+        if (json && json.userId) {
+          setUserId(json.userId);
+        }
         onComplete();
         console.log('subscribe success');
       }

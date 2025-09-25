@@ -3,16 +3,16 @@ import NavbarComponent from './Navbar';
 import OptionGroup from './OptionGroup';
 import { groupInfosData, type SelectedMap } from './TGroupInfo';
 import TitleAreaComponent from './TitleArea';
-import { useGroupSelections } from './useGroupSelections';
 import type { FC } from 'react';
 
 interface IProps {
-  onNext: (selected: SelectedMap) => void;
+  selected: SelectedMap;
+  toggle: (groupName: string, value: string) => void;
+  allGroupsSelected: boolean;
+  onNext: () => void;
 }
 
-const InterestSelectComponent: FC<IProps> = ({ onNext }) => {
-  const { selected, toggle, allGroupsSelected } = useGroupSelections(groupInfosData);
-
+const InterestSelectComponent: FC<IProps> = ({ selected, toggle, allGroupsSelected, onNext }) => {
   return (
     <VStack paddingX={'20px'} className="bg-[#F7F7FA] h-screen flex justify-between pb-10">
       <VStack>
@@ -40,7 +40,7 @@ const InterestSelectComponent: FC<IProps> = ({ onNext }) => {
         </div>
       </VStack>
       {allGroupsSelected && (
-        <Button size="xl" className="bg-black" onClick={() => onNext(selected)}>
+        <Button size="xl" className="bg-black" onClick={onNext}>
           다음으로
         </Button>
       )}

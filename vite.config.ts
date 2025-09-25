@@ -26,6 +26,32 @@ export default defineConfig({
     ],
   },
   build: {
-    sourcemap: false, // 개발 시에는 소스맵 비활성화
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React 관련 라이브러리 분리
+          'react-vendor': ['react', 'react-dom'],
+          // 라우터 분리
+          router: ['react-router-dom'],
+          // UI 라이브러리 분리
+          'vapor-ui': ['@vapor-ui/core', '@vapor-ui/icons'],
+          // Swiper 분리
+          swiper: ['swiper'],
+          // 기타 라이브러리
+          vendor: ['@tanstack/react-query', 'zustand'],
+        },
+      },
+    },
+    // 청크 크기 경고 임계값 조정
+    chunkSizeWarningLimit: 600,
+    // 압축 최적화
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // console.log 제거
+        drop_debugger: true, // debugger 제거
+      },
+    },
   },
 });
