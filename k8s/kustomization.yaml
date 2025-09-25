@@ -11,7 +11,7 @@ configMapGenerator:
   - name: frontend-config
     files:
       - config.json=config/frontend-config.json
-      - config.yaml=config/frontend-nginx-config.yaml
+#      - config.yaml=config/frontend-nginx-config.yaml
 
 generatorOptions:
   disableNameSuffixHash: true
