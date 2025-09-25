@@ -10,7 +10,7 @@ const LogoIntroPage = () => {
 
   useEffect(() => {
     const fadeTimer = setTimeout(() => setIsFading(true), 2500);
-    const navTimer = setTimeout(() => navigate('/'), 3000);
+    const navTimer = setTimeout(() => navigate('/home'), 3000);
 
     return () => {
       clearTimeout(fadeTimer);

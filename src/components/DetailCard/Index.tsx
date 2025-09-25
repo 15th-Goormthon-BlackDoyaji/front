@@ -5,7 +5,7 @@ import BadgeIcon from './Badge';
 import TextArea from './TextArea';
 import type { InfoItem } from '../../pages/Home/Home';
 
-const DetailCard: FC<InfoItem> = ({ title, url, dueDate, summary, color, badgeColor, hasHeart=false }) => {
+const DetailCard: FC<InfoItem> = ({ title, url, due_date, summary, color, hasHeart = false }) => {
   const [heart, setHeart] = useState(false);
   return (
     <VStack
@@ -16,10 +16,10 @@ const DetailCard: FC<InfoItem> = ({ title, url, dueDate, summary, color, badgeCo
       width="300px"
       borderRadius="$600"
     >
-      <VStack gap="$150" alignItems="start">
+      <VStack gap="$150" alignItems="start" width="100%">
         <BadgeIcon
-          color={badgeColor}
-          due_date={dueDate}
+          color={color}
+          due_date={due_date}
           hasHeart={hasHeart}
           heartFilled={heart}
           onHeartChange={setHeart}
@@ -35,7 +35,7 @@ const DetailCard: FC<InfoItem> = ({ title, url, dueDate, summary, color, badgeCo
       <Box
         height="$600"
         padding="$175"
-        className="flex h-50 flex-col justify-between"
+        className="flex h-50 flex-col justify-between w-full"
         borderRadius="$400"
         style={{ backgroundColor: `${color}1A` }}
       >

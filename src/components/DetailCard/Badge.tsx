@@ -39,7 +39,7 @@ const BadgeIcon: FC<IProps> = ({
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   return (
-    <HStack justifyContent="space-between" width="100%">
+    <HStack justifyContent="space-between" alignItems="center" width="100%">
       <Badge size="sm" style={{ background: color, color: 'white' }} className={className}>
         마감 {diffDays}일 전
       </Badge>

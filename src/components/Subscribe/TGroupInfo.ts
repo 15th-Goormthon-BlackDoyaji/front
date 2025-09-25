@@ -13,6 +13,13 @@ export const groupInfosData: GroupInfo[] = [
   { groupName: '관심사', values: ['취업/일자리', '자격증', '지원금'] },
 ];
 
+export const groupInfosDataRequired: GroupInfo[] = [
+  { groupName: '지역', values: ['제주', '서귀포'] },
+  { groupName: '학력', values: ['대학생', '졸업생'] },
+  { groupName: '거주', values: ['제주도민', '이주민'] },
+  { groupName: '관심사', values: ['취업/일자리', '자격증', '지원금'] },
+];
+
 // 서버 스키마
 export type ServerPayload = {
   education?: ('UNIVERSITY' | 'GRADUATED')[];
@@ -33,7 +40,7 @@ export const GROUP_KEY_MAP: Record<string, keyof ServerPayload> = {
 export const VALUE_MAP: Record<keyof ServerPayload, Record<string, string>> = {
   education: {
     대학생: 'UNIVERSITY',
-    졸업생: 'GRADUATED',
+    졸업생: 'GRADUATION',
     상관없음: 'NULL',
   },
   region: {

@@ -1,11 +1,12 @@
 import { useState, type FC, type ChangeEvent, useMemo } from 'react';
 import NavbarComponent from './Navbar';
 import TitleAreaComponent from './TitleArea';
-import { Button, VStack, Text, TextInput } from '@vapor-ui/core';
+import { Button, VStack, Text } from '@vapor-ui/core';
 import { GROUP_KEY_MAP, VALUE_MAP, type SelectedMap } from './TGroupInfo';
 import { useUserStore } from '../../store/userStore';
+import TextInput from '../TextInput';
 
-function mapSelectionsToServer(selected: Record<string, string[]>) {
+export function mapSelectionsToServer(selected: Record<string, string[]>) {
   const result: Record<string, string | string[]> = {};
 
   Object.entries(selected).forEach(([group, values]) => {
@@ -37,8 +38,8 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
   const filters = useMemo(() => mapSelectionsToServer(selected), [selected]);
   const setUserId = useUserStore((s) => s.setUserId);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const handleChange = (value: string) => {
+    setEmail(value);
   };
 
   const handleSubmit = async () => {
@@ -88,11 +89,17 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
           <VStack className="mb-5" gap="$100" alignItems="start">
             <Text typography="heading6">이메일</Text>
             <TextInput
+              hasLeadingIcon={false}
+              value={email}
+              onChange={handleChange}
+              placeholder="이메일을 입력하세요."
+            />
+            {/* <TextInput
               value={email}
               onChange={handleChange}
               placeholder="dosaegi5@gmail.com"
-              className="w-full placeholder-[#E8E8EE]"
-            />
+              className="w-full placeholder-[#E8E8EE] focus:outline-none focus:ring-0 focus:border-black"
+            /> */}
           </VStack>
         </div>
       </VStack>

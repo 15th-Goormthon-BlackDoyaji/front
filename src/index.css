@@ -21,7 +21,7 @@
 
 body {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
 }
@@ -30,12 +30,11 @@ body {
   margin: 0;
   padding: 0;
   width: 600px;
-  height: 100vh;
+  height: 100dvh;
   overflow-x: hidden;
   font-family: 'Pretendard';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
-  border: 1px solid #000;
   background: rgba(247, 247, 247, 1);
 }

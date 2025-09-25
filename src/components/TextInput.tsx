@@ -6,27 +6,39 @@ interface TextInputProps {
   value?: string;
   onChange?: (value: string) => void;
   className?: string;
+  disabled?: boolean;
+  hasLeadingIcon?: boolean;
 }
 
-const TextInput = ({ placeholder = '검색', value, onChange, className = '' }: TextInputProps) => {
+const TextInput = ({
+  placeholder = '검색',
+  value,
+  onChange,
+  className = '',
+  disabled = false,
+  hasLeadingIcon = true,
+}: TextInputProps) => {
   return (
     <div
       className={clsx(
-        'bg-white box-border flex flex-col gap-[10px] items-start justify-center pl-[12px] pr-0 py-[4px] rounded-[20px] w-full',
+        'bg-white box-border flex flex-col gap-[10px] items-start justify-center pl-[12px] pr-0 py-[12px] rounded-[20px] w-full',
         className
       )}
     >
       <div className="flex gap-[4px] items-center w-full">
         <div className="flex gap-[4px] items-center shrink-0 w-full">
-          <div className="size-[20px] shrink-0">
-            <SearchOutlineIcon className="w-full h-full text-[#959595]" />
-          </div>
+          {hasLeadingIcon && (
+            <div className="size-[20px] shrink-0">
+              <SearchOutlineIcon className="w-full h-full text-[#959595]" />
+            </div>
+          )}
           <input
             type="text"
             value={value}
             onChange={(e) => onChange?.(e.target.value)}
             placeholder={placeholder}
-            className="font-['Pretendard'] text-[14px] text-black leading-[22px] tracking-[-0.1px] bg-transparent border-none outline-none placeholder:text-[#959595] flex-1 w-full"
+            className="font-['Pretendard'] text-[18px] text-black leading-[22px] tracking-[-0.1px] bg-transparent border-none outline-none placeholder:text-[#959595] flex-1 w-full"
+            disabled={disabled}
           />
         </div>
       </div>
