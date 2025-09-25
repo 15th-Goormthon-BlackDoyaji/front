@@ -1,14 +1,14 @@
 # 1단계: 빌드
-FROM node:20.19 as build
+FROM node:20.19
 
-WORKDIR /app
+WORKDIR /
 
 # 패키지 설치
-COPY package*.json ./
+COPY . ./
 RUN npm install
 
 # 소스 복사 후 빌드
-COPY k8s .
+#COPY k8s .
 RUN npm run build
 
 ## 2단계: Nginx를 이용해 정적 파일 서빙
