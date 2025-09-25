@@ -4,7 +4,7 @@ import TitleAreaComponent from './TitleArea';
 import { Button, VStack, Text, TextInput } from '@vapor-ui/core';
 import { GROUP_KEY_MAP, VALUE_MAP, type SelectedMap } from './TGroupInfo';
 
-function mapSelectionsToServer(selected: Record<string, string[]>) {
+export function mapSelectionsToServer(selected: Record<string, string[]>) {
   const result: Record<string, string | string[]> = {};
 
   Object.entries(selected).forEach(([group, values]) => {
