@@ -5,6 +5,7 @@ import HomeTitle from './HomeTitle';
 import HomeInfoSlide from './HomeInfoSlide';
 import DetailModal from '../../components/CardSwiper/Index';
 import { useDetailModalStore } from '../../store/useDetailModalStore';
+import { useUserStore } from '../../store/userStore';
 
 export interface InfoItem {
   id: number;
@@ -44,6 +45,7 @@ const COLORS = [
 const Home = () => {
   const { isOpen, closeModal, selectedIndex } = useDetailModalStore();
   const [infos, setInfos] = useState<InfoItem[]>([]);
+  const userId = useUserStore((s) => s.userId) ?? 1;
   // Calculate days until deadline
   const calculateDaysLeft = (dueDate: string) => {
     const today = new Date();
@@ -57,9 +59,10 @@ const Home = () => {
   // API에서 데이터 가져오기
   useEffect(() => {
     const fetchInfos = async () => {
+      console.log('Fetching infos for userId:', userId);
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_PUBLIC_API_URL}/api/infos/me?pageSize=5&userId=1`
+          `${import.meta.env.VITE_PUBLIC_API_URL}/api/infos/me?pageSize=10&userId=${userId}`
         );
         const data = await response.json();
 
