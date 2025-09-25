@@ -22,11 +22,11 @@ const InterestSelectComponent: FC<IProps> = ({ selected, toggle, allGroupsSelect
         <TitleAreaComponent
           title={
             <span>
-              맞춤형 뉴스레터
+              맞춤형 뉴스레터,
               <br /> 준비되셨나요?
             </span>
           }
-          description="관심사에 맞는 제주 뉴스레터를 추천해드릴게요."
+          description="기준과 관심사에 맞춰 전해드립니다."
         />
         <div className="mt-10">
           {groupInfosData.map((group) => (

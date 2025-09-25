@@ -78,10 +78,10 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
             <span>
               뉴스레터를 받을
               <br />
-              이메일을 입력해주세요
+              이메일을 입력해주세요.
             </span>
           }
-          description="매우 중요한 교육 소식을 한눈에 확인할 수 있습니다."
+          description="매주, 나에게 딱 맞는 교육 프로그램을 받아보세요."
         />
 
         <div className="mt-10">
