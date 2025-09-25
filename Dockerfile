@@ -1,10 +1,10 @@
 # 1단계: 빌드
 FROM node:20.19
 
-WORKDIR /
+WORKDIR /src
 
 # 패키지 설치
-COPY . ./
+COPY . .
 RUN npm install
 
 # 소스 복사 후 빌드
@@ -21,7 +21,7 @@ RUN npm run build
 #COPY --from=build /app/dist /usr/share/nginx/html
 #
 ## Kubernetes에서 외부로 노출할 포트
-EXPOSE 3000
+#EXPOSE 3000
 #
 ## Nginx 포그라운드 실행
 #CMD ["nginx", "-g", "daemon off;"]
