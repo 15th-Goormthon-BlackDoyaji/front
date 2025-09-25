@@ -1,0 +1,65 @@
+/* Swiper 페이지네이션 커스텀 스타일 */
+
+/* 페이지네이션 컨테이너 */
+.swiper-pagination {
+  bottom: 15px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  position: absolute !important;
+  z-index: 10 !important;
+}
+
+/* 기본 불릿 스타일 */
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 50% !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+}
+
+/* 활성 불릿 스타일 */
+.swiper-pagination-bullet-active {
+  background: white !important;
+  width: 8px !important;
+  border-radius: 12px !important;
+  transform: scale(1.1) !important;
+}
+
+/* 호버 효과 */
+.swiper-pagination-bullet:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  transform: scale(1.1) !important;
+}
+
+.swiper-pagination-bullet-active:hover {
+  background: white !important;
+}
+
+/* 다이나믹 불릿 스타일 */
+.swiper-pagination-bullet-dynamic {
+  transition: all 0.3s ease !important;
+}
+
+/* Swiper 컨테이너 높이 자동 조절 */
+.swiper {
+  height: auto !important;
+  background: transparent !important; /* 투명 배경 */
+}
+
+.swiper-wrapper {
+  height: auto !important;
+  background: transparent !important; /* 투명 배경 */
+}
+
+.swiper-slide {
+  height: auto !important;
+  background: transparent !important; /* 투명 배경 */
+}
