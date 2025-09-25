@@ -9,7 +9,6 @@ const HomeHeader = () => {
   return (
     <HStack
       justifyContent="space-between"
-      className="border border-gray-300 my-5 mx-5 rounded-full"
       gap="$200"
       alignItems="center"
       padding="$150 $200"
