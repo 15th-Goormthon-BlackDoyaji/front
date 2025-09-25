@@ -89,7 +89,7 @@ const HomeInfoSlide = ({ infos }: HomeInfoSlideProps) => {
   return (
     <VStack
       ref={containerRef}
-      className="h-[568px] overflow-y-auto"
+      className="h-[570px] overflow-y-auto"
       onScroll={handleScroll}
       style={{
         scrollbarWidth: 'none',

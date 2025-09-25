@@ -35,6 +35,7 @@ const HomeRedirect = () => {
   const [infos, setInfos] = useState<InfoItem[]>([]);
 
   const userId = localStorage.getItem('userId');
+  const filtered = localStorage.getItem('filtered');
 
   const calculateDaysLeft = (dueDate: string) => {
     const today = new Date();
@@ -49,7 +50,7 @@ const HomeRedirect = () => {
     const fetchInfos = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_PUBLIC_API_URL}/api/infos/me?pageSize=30${userId ? `&userId=${userId}` : ''}`
+          `${import.meta.env.VITE_PUBLIC_API_URL}/api/infos/me?pageSize=15${userId ? `&userId=${userId}` : ''}`
         );
         const data = await response.json();
 
@@ -72,64 +73,12 @@ const HomeRedirect = () => {
         });
 
         setInfos(processedInfos);
+
+        if (processedInfos.length === 15) {
+          localStorage.setItem('filtered', 'true');
+        }
       } catch (error) {
         console.error('API 데이터 가져오기 실패:', error);
-
-        // 에러 시 fallback 데이터 사용
-        const fallbackInfos = [
-          {
-            id: 1,
-            due_date: '2025-09-26',
-            title: '[한국장애인고용공단 맞춤훈련센터] 조경·환경 관리 장애인 훈련생 모집(2차)',
-            summary: '모집대상: 장애인\n모집기간: 2025.09.25 ~ 2025.10.10',
-            url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246590',
-          },
-          {
-            id: 2,
-            due_date: '2025-10-05',
-            title: '2025년 지역주도형 청년일자리사업 참여기업 모집 공고',
-            summary: '모집대상: 청년(만 18~39세) 채용기업\n모집기간: 2025.09.20 ~ 2025.10.05',
-            url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246542',
-          },
-          {
-            id: 3,
-            due_date: '2025-10-05',
-            title: '2025년 지역주도형 청년일자리사업 참여기업 모집 공고',
-            summary: '모집대상: 청년(만 18~39세) 채용기업\n모집기간: 2025.09.20 ~ 2025.10.05',
-            url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246542',
-          },
-          {
-            id: 4,
-            due_date: '2025-10-05',
-            title: '2025년 지역주도형 청년일자리사업 참여기업 모집 공고',
-            summary: '모집대상: 청년(만 18~39세) 채용기업\n모집기간: 2025.09.20 ~ 2025.10.05',
-            url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246542',
-          },
-          {
-            id: 5,
-            due_date: '2025-10-05',
-            title: '2025년 지역주도형 청년일자리사업 참여기업 모집 공고',
-            summary: '모집대상: 청년(만 18~39세) 채용기업\n모집기간: 2025.09.20 ~ 2025.10.05',
-            url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246542',
-          },
-        ].map((card, index) => {
-          const daysLeft = calculateDaysLeft(card.due_date);
-
-          // 역순 인덱스 계산: 가장 마지막이 0번 색상
-          const reverseIndex = 5 - 1 - index; // fallback 데이터는 5개
-          const colorIndex = reverseIndex % COLORS.length;
-          const cardColor = COLORS[colorIndex];
-
-          return {
-            ...card,
-            deadline: daysLeft > 0 ? `마감 ${daysLeft}일전` : daysLeft === 0 ? '오늘 마감' : '마감',
-            color: cardColor.background,
-            badgeColor: cardColor.badge,
-            detailColor: cardColor.detailColor,
-          };
-        });
-
-        setInfos(fallbackInfos);
       } finally {
         setDone(true);
       }
@@ -138,7 +87,7 @@ const HomeRedirect = () => {
     fetchInfos();
   }, []);
 
-  if (userId) {
+  if (userId && !filtered) {
     if (!done) return <HomeLoading />;
     return <Home infos={infos} />;
   }
