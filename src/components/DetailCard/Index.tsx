@@ -5,7 +5,7 @@ import BadgeIcon from './Badge';
 import TextArea from './TextArea';
 import type { InfoItem } from '../../pages/Home/Home';
 
-const DetailCard: FC<InfoItem> = ({ title, url, dueDate, summary, color }) => {
+const DetailCard: FC<InfoItem> = ({ title, url, due_date, summary, color }) => {
   return (
     <VStack
       padding="$250"
@@ -16,7 +16,7 @@ const DetailCard: FC<InfoItem> = ({ title, url, dueDate, summary, color }) => {
       borderRadius="$600"
     >
       <VStack gap="$150" alignItems="start">
-        <BadgeIcon color={color} due_date={dueDate} />
+        <BadgeIcon color={color} due_date={due_date} />
         <Text
           typography="heading5"
           style={{ color: color }}
@@ -28,7 +28,7 @@ const DetailCard: FC<InfoItem> = ({ title, url, dueDate, summary, color }) => {
       <Box
         height="$600"
         padding="$175"
-        className="flex h-50 flex-col justify-between"
+        className="flex h-50 flex-col justify-between w-full"
         borderRadius="$400"
         style={{ backgroundColor: `${color}1A` }}
       >

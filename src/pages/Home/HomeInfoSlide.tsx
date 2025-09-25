@@ -98,7 +98,7 @@ const HomeInfoSlide = ({ infos }: HomeInfoSlideProps) => {
       {infos.map((info, index) => {
         return (
           <div
-            key={info.id}
+            key={index}
             className="flex justify-center"
             style={{
               opacity: cardOpacities[index] ?? 0,

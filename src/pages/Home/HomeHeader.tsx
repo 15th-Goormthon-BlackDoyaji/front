@@ -1,15 +1,13 @@
-import { Button, HStack } from '@vapor-ui/core';
-import { SearchOutlineIcon, SettingOutlineIcon } from '@vapor-ui/icons';
+import { HStack } from '@vapor-ui/core';
+import { SearchOutlineIcon } from '@vapor-ui/icons';
+import { Link } from 'react-router-dom';
 
 const HomeHeader = () => {
   return (
     <HStack justifyContent="space-between" padding="$150 $250">
-      <Button variant="ghost">
+      <Link to="/search">
         <SearchOutlineIcon size={32} className="text-black" />
-      </Button>
-      <Button variant="ghost">
-        <SettingOutlineIcon size={32} className="text-black" />
-      </Button>
+      </Link>
     </HStack>
   );
 };

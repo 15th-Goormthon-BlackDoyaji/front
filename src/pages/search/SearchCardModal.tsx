@@ -1,35 +1,14 @@
 // DetailModal.tsx
 import { type FC, useEffect, useCallback, useState } from 'react';
-import DetailCard from '../DetailCard/Index';
-import Swiper from './Swiper';
-import CloseIcon from '../DetailCard/CloseIcon';
-import type { InfoItem } from '../../pages/Home/Home';
-import { useDetailModalStore } from '../../store/useDetailModalStore';
+import DetailCard from '../../components/DetailCard/Index';
+import CloseIcon from '../../components/DetailCard/CloseIcon';
+import { useSearchCardModalStore } from '../../store/useSearchCardModalStore';
 
-interface IProps {
-  data: InfoItem[];
-  selectedIndex?: number;
-}
-
-const DetailModal: FC<IProps> = ({ data, selectedIndex }) => {
-  const { isOpen, closeModal } = useDetailModalStore();
+const SearchCardModal: FC = () => {
+  const { isOpen, closeModal, info } = useSearchCardModalStore();
 
   const [isAnimating, setIsAnimating] = useState(false);
   const [shouldRender, setShouldRender] = useState(isOpen);
-
-  const items = data.map((item: InfoItem, idx: number) => {
-    return (
-      <DetailCard
-        key={idx}
-        id={item.id}
-        title={item.title}
-        due_date={item.due_date}
-        summary={item.summary}
-        url={item.url}
-        color={item.detailColor}
-      />
-    );
-  });
 
   const handleClose = useCallback(() => {
     setIsAnimating(false);
@@ -78,14 +57,25 @@ const DetailModal: FC<IProps> = ({ data, selectedIndex }) => {
           isAnimating ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'
         }`}
       >
-        <CloseIcon
-          className="absolute -top-7 right-12 flex items-center justify-center cursor-pointer z-[60]"
-          onClick={handleClose}
-        />
-        <Swiper itemList={items} defaultIdx={selectedIndex} />
+        <div className="flex justify-center items-center">
+          <div className="relative">
+            <CloseIcon
+              className="absolute -top-7 right-2 flex items-center justify-center cursor-pointer z-[60]"
+              onClick={handleClose}
+            />
+            <DetailCard
+              id={0}
+              title={info?.title || ''}
+              due_date={info?.due_date || ''}
+              summary={info?.summary || ''}
+              url={info?.url || ''}
+              color="#FF7E35"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default DetailModal;
+export default SearchCardModal;

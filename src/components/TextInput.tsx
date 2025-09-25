@@ -6,9 +6,16 @@ interface TextInputProps {
   value?: string;
   onChange?: (value: string) => void;
   className?: string;
+  disabled?: boolean;
 }
 
-const TextInput = ({ placeholder = '검색', value, onChange, className = '' }: TextInputProps) => {
+const TextInput = ({
+  placeholder = '검색',
+  value,
+  onChange,
+  className = '',
+  disabled = false,
+}: TextInputProps) => {
   return (
     <div
       className={clsx(
@@ -26,7 +33,8 @@ const TextInput = ({ placeholder = '검색', value, onChange, className = '' }: 
             value={value}
             onChange={(e) => onChange?.(e.target.value)}
             placeholder={placeholder}
-            className="font-['Pretendard'] text-[14px] text-black leading-[22px] tracking-[-0.1px] bg-transparent border-none outline-none placeholder:text-[#959595] flex-1 w-full"
+            className="font-['Pretendard'] text-[16px] text-black leading-[22px] tracking-[-0.1px] bg-transparent border-none outline-none placeholder:text-[#959595] flex-1 w-full"
+            disabled={disabled}
           />
         </div>
       </div>
