@@ -5,14 +5,19 @@ import SecondStepIcon from './SecondStepIcon';
 
 interface IProps {
   step?: number;
-  onClick?: () => void;
+  beforeOnClick?: () => void;
+  nextOnClick?: () => void;
 }
-const NavbarComponent = ({ step = 1, onClick }: IProps) => {
+const NavbarComponent = ({ step = 1, beforeOnClick, nextOnClick }: IProps) => {
   return (
     <VStack marginTop={'12px'} className={'p-3 gap-1 h-min'}>
-      <BackArrowIcon onClick={onClick} className={step === 2 ? '' : 'invisible'} />
+      <BackArrowIcon onClick={beforeOnClick} />
       <div className="flex justify-end">
-        {step === 2 ? <SecondStepIcon onClick={onClick} /> : <FirstStepIcon onClick={onClick} />}
+        {step === 2 ? (
+          <SecondStepIcon onClick={beforeOnClick} />
+        ) : (
+          <FirstStepIcon onClick={nextOnClick} />
+        )}
       </div>
     </VStack>
   );
