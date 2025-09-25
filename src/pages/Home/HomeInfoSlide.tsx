@@ -3,42 +3,11 @@ import { VStack } from '@vapor-ui/core';
 import HomeInfoCard from '../../components/home/HomeInfoCard';
 import './test.css';
 import { flushSync } from 'react-dom';
-
-interface InfoItem {
-  id: number;
-  dueDate: string;
-  title: string;
-  summary: string;
-  url: string;
-  deadline: string;
-}
+import type { InfoItem } from './Home';
 
 interface HomeInfoSlideProps {
   infos: InfoItem[];
 }
-
-const COLORS = [
-  {
-    background: 'bg-[#FF7E35]',
-    badge: 'bg-[#E95400]',
-  },
-  {
-    background: 'bg-[#CBCBCB]',
-    badge: 'bg-[#000000]',
-  },
-  {
-    background: 'bg-[#FFF47F]',
-    badge: 'bg-[#FFA941]',
-  },
-  {
-    background: 'bg-[#99C9FF]',
-    badge: 'bg-[#479DFF]',
-  },
-  {
-    background: 'bg-[#4CC57E]',
-    badge: 'bg-[#099D49]',
-  },
-];
 
 const HomeInfoSlide = ({ infos }: HomeInfoSlideProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -127,18 +96,6 @@ const HomeInfoSlide = ({ infos }: HomeInfoSlideProps) => {
       }}
     >
       {infos.map((info, index) => {
-        // 역순 인덱스 계산: 가장 마지막이 0번 색상
-        const reverseIndex = infos.length - 1 - index;
-        const colorIndex = reverseIndex % COLORS.length;
-        const cardColor = COLORS[colorIndex];
-
-        // info 객체에 색상 정보 추가
-        const cardWithColor = {
-          ...info,
-          color: cardColor.background,
-          badgeColor: cardColor.badge,
-        };
-
         return (
           <div
             key={info.id}
@@ -156,7 +113,7 @@ const HomeInfoSlide = ({ infos }: HomeInfoSlideProps) => {
                 transition: 'width 0.3s ease-in-out',
               }}
             >
-              <HomeInfoCard index={index} card={cardWithColor} />
+              <HomeInfoCard index={index} card={info} />
             </div>
           </div>
         );

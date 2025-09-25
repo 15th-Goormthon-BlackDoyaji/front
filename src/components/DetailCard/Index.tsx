@@ -3,10 +3,9 @@ import AiIcon from './AiIcon';
 import { Box, Button, Text, VStack } from '@vapor-ui/core';
 import BadgeIcon from './Badge';
 import TextArea from './TextArea';
-import type { TDetailCard } from './TDetailCard';
+import type { InfoItem } from '../../pages/Home/Home';
 
-
-const DetailCard: FC<TDetailCard> = ({ title, url, due_date, summary, color = '#FF7E35' }) => {
+const DetailCard: FC<InfoItem> = ({ title, url, dueDate, summary, color, badgeColor }) => {
   return (
     <VStack
       padding="$250"
@@ -17,7 +16,7 @@ const DetailCard: FC<TDetailCard> = ({ title, url, due_date, summary, color = '#
       borderRadius="$600"
     >
       <VStack gap="$150" alignItems="start">
-        <BadgeIcon color={color} due_date={due_date} />
+        <BadgeIcon color={badgeColor} due_date={dueDate} />
         <Text
           typography="heading5"
           style={{ color: color }}
@@ -30,6 +29,7 @@ const DetailCard: FC<TDetailCard> = ({ title, url, due_date, summary, color = '#
         height="$600"
         padding="$175"
         className="flex h-50 flex-col justify-between"
+        borderRadius="$400"
         style={{ backgroundColor: `${color}1A` }}
       >
         {/* {due_date && <TextArea title="모집 기간" contents={due_date} titleColor={color} />} */}

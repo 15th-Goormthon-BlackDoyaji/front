@@ -1,16 +1,7 @@
 import { Badge, Box, Text } from '@vapor-ui/core';
 import clsx from 'clsx';
-
-interface InfoItem {
-  id: number;
-  dueDate: string;
-  title: string;
-  summary: string;
-  url: string;
-  deadline: string;
-  color: string;
-  badgeColor: string;
-}
+import { useDetailModalStore } from '../../store/useDetailModalStore';
+import type { InfoItem } from '../../pages/Home/Home';
 
 interface HomeInfoCardProps {
   card: InfoItem;
@@ -19,6 +10,7 @@ interface HomeInfoCardProps {
 }
 
 const HomeInfoCard = ({ card, index, className }: HomeInfoCardProps) => {
+  const { openModal } = useDetailModalStore();
   return (
     <Box
       padding="$250"
@@ -30,9 +22,10 @@ const HomeInfoCard = ({ card, index, className }: HomeInfoCardProps) => {
         width: '100%',
         zIndex: index,
       }}
+      onClick={() => openModal(index)}
     >
       <div>
-        <Badge className="rounded-[8px]">
+        <Badge className={`rounded-[8px] ${card.badgeColor}`}>
           <Text typography="subtitle2" className="text-white">
             {card.deadline}
           </Text>

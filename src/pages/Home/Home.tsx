@@ -3,17 +3,45 @@ import { VStack } from '@vapor-ui/core';
 import HomeHeader from './HomeHeader';
 import HomeTitle from './HomeTitle';
 import HomeInfoSlide from './HomeInfoSlide';
+import DetailModal from '../../components/CardSwiper/Index';
+import { useDetailModalStore } from '../../store/useDetailModalStore';
 
-interface InfoItem {
+export interface InfoItem {
   id: number;
   dueDate: string;
   title: string;
   summary: string;
   url: string;
   deadline?: string;
+  color?: string;
+  badgeColor?: string;
 }
 
+const COLORS = [
+  {
+    background: 'bg-[#FF7E35]',
+    badge: 'bg-[#E95400]',
+  },
+  {
+    background: 'bg-[#CBCBCB]',
+    badge: 'bg-[#000000]',
+  },
+  {
+    background: 'bg-[#FFF47F]',
+    badge: 'bg-[#FFA941]',
+  },
+  {
+    background: 'bg-[#99C9FF]',
+    badge: 'bg-[#479DFF]',
+  },
+  {
+    background: 'bg-[#4CC57E]',
+    badge: 'bg-[#099D49]',
+  },
+];
+
 const Home = () => {
+  const { isOpen, closeModal, selectedIndex } = useDetailModalStore();
   const [infos, setInfos] = useState<InfoItem[]>([]);
   // Calculate days until deadline
   const calculateDaysLeft = (dueDate: string) => {
@@ -30,16 +58,24 @@ const Home = () => {
     const fetchInfos = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/infos/me?pageSize=5&userId=1`
+          `${import.meta.env.VITE_PUBLIC_API_URL}/api/infos/me?pageSize=5&userId=1`
         );
         const data = await response.json();
 
-        // API 응답을 InfoItem 형태로 변환하고 deadline 계산
-        const processedInfos = data.map((item: any) => {
+        // API 응답을 InfoItem 형태로 변환하고 deadline, 색상 계산
+        const processedInfos = data.map((item: any, index: number) => {
           const daysLeft = calculateDaysLeft(item.dueDate);
+
+          // 역순 인덱스 계산: 가장 마지막이 0번 색상
+          const reverseIndex = data.length - 1 - index;
+          const colorIndex = reverseIndex % COLORS.length;
+          const cardColor = COLORS[colorIndex];
+
           return {
             ...item,
             deadline: daysLeft > 0 ? `마감 ${daysLeft}일전` : daysLeft === 0 ? '오늘 마감' : '마감',
+            color: cardColor.background,
+            badgeColor: cardColor.badge,
           };
         });
 
@@ -63,11 +99,40 @@ const Home = () => {
             summary: '모집대상: 청년(만 18~39세) 채용기업\n모집기간: 2025.09.20 ~ 2025.10.05',
             url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246542',
           },
-        ].map((card) => {
+          {
+            id: 3,
+            dueDate: '2025-10-05',
+            title: '2025년 지역주도형 청년일자리사업 참여기업 모집 공고',
+            summary: '모집대상: 청년(만 18~39세) 채용기업\n모집기간: 2025.09.20 ~ 2025.10.05',
+            url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246542',
+          },
+          {
+            id: 4,
+            dueDate: '2025-10-05',
+            title: '2025년 지역주도형 청년일자리사업 참여기업 모집 공고',
+            summary: '모집대상: 청년(만 18~39세) 채용기업\n모집기간: 2025.09.20 ~ 2025.10.05',
+            url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246542',
+          },
+          {
+            id: 5,
+            dueDate: '2025-10-05',
+            title: '2025년 지역주도형 청년일자리사업 참여기업 모집 공고',
+            summary: '모집대상: 청년(만 18~39세) 채용기업\n모집기간: 2025.09.20 ~ 2025.10.05',
+            url: 'https://www.jeju.go.kr/news/news/notice.htm?act=view&seq=1246542',
+          },
+        ].map((card, index) => {
           const daysLeft = calculateDaysLeft(card.dueDate);
+
+          // 역순 인덱스 계산: 가장 마지막이 0번 색상
+          const reverseIndex = 5 - 1 - index; // fallback 데이터는 5개
+          const colorIndex = reverseIndex % COLORS.length;
+          const cardColor = COLORS[colorIndex];
+
           return {
             ...card,
             deadline: daysLeft > 0 ? `마감 ${daysLeft}일전` : daysLeft === 0 ? '오늘 마감' : '마감',
+            color: cardColor.background,
+            badgeColor: cardColor.badge,
           };
         });
 
@@ -79,33 +144,22 @@ const Home = () => {
   }, []);
 
   return (
-    <VStack className="h-full">
-      <HomeHeader />
+    <>
+      <VStack className="h-full">
+        <HomeHeader />
 
-      <HomeTitle />
+        <HomeTitle />
 
-      <HomeInfoSlide infos={infos.reverse()} />
+        <HomeInfoSlide infos={infos.reverse()} />
+      </VStack>
 
-      <button
-        onClick={async () => {
-          await fetch(`${import.meta.env.VITE_API_URL}/api/subscribe`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: 'whdnjsdud551@naver.com',
-              education: 'UNIVERSITY',
-              region: 'JEJU',
-              residency: 'NATIVE',
-              interest: 'EMPLOYMENT',
-            }),
-          });
-        }}
-      >
-        버튼ㅇ
-      </button>
-    </VStack>
+      <DetailModal
+        data={infos}
+        isOpen={isOpen}
+        onClose={closeModal}
+        selectedIndex={selectedIndex}
+      />
+    </>
   );
 };
 
