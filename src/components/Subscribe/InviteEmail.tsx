@@ -1,4 +1,4 @@
-import { useState, type FC, type ChangeEvent, useMemo } from 'react';
+import { useState, type FC, useMemo } from 'react';
 import NavbarComponent from './Navbar';
 import TitleAreaComponent from './TitleArea';
 import { Button, VStack, Text } from '@vapor-ui/core';
