@@ -14,7 +14,12 @@ const TextArea: FC<IProps> = ({ title, contents, titleColor }) => {
         {title}
       </Text>
       <Text typography="body2" className="line-clamp-4 leading-[1.4] break-keep whitespace-normal">
-        {contents}
+        {contents.split('\n').map((line, index) => (
+          <span key={index}>
+            {line}
+            {index < contents.split('\n').length - 1 && <br />}
+          </span>
+        ))}
       </Text>
     </VStack>
   );
