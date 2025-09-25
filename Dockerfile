@@ -7,7 +7,6 @@ FROM node:20-alpine AS builder
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
-
 # 종속성 설치 (캐시 최적화)
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
