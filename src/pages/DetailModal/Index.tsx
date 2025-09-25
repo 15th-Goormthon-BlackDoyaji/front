@@ -1,67 +1,60 @@
-// DetailModal.tsx
-import { type FC, useEffect, useCallback } from 'react';
-import DetailCard from '../../components/DetailCard/Index';
-import Swiper from '../../components/DetailCard/Swiper';
-import CloseIcon from '../../components/DetailCard/CloseIcon';
+import { useEffect, useState } from 'react';
+import { Button } from '@vapor-ui/core';
+import { mockData } from './detailmock';
 import type { TDetailCard } from '../../components/DetailCard/TDetailCard';
+import DetailModal from '../../components/CardSwiper/Index';
 
-interface IProps {
-  data: TDetailCard[];
-  selectedIndex?: number;
-  isOpen?: boolean;
-  onClose?: () => void;
-}
-const colors_chip = ['#4CAF50', '#FF7E35', '#FFF47F', '#2196F3'];
+function DetailModal1() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [items, setItems] = useState<TDetailCard[]>(mockData);
 
-const DetailModal: FC<IProps> = ({ data, selectedIndex = 0, onClose }) => {
-  // data가 없거나 빈 배열이면 null 반환
-  if (!data || !data.length) return null;
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
-  const items = data.map((item: TDetailCard, idx: number) => {
-    return (
-      <DetailCard
-        key={idx}
-        title={item.title}
-        due_date={item.due_date}
-        summary={item.summary}
-        url={item.url}
-        color={item.color ?? colors_chip[Math.floor(Math.random() * colors_chip.length)]}
-      />
-    );
-  });
+  const fetchDetailInfo = async (signal?: AbortSignal) => {
+    try {
+      const userId = encodeURIComponent(localStorage.getItem('userId') || '1');
+      const baseUrl = import.meta.env.VITE_PUBLIC_API_URL;
 
-  const handleClose = useCallback(() => {
-    onClose?.();
-  }, [onClose]);
+      if (!baseUrl) {
+        console.warn('VITE_PUBLIC_API_URL is not set. Falling back to mockData.');
+        setItems(mockData);
+        return;
+      }
 
-  // ESC 닫기
+      const res = await fetch(`${baseUrl}/api/infos/me?userId=${userId}`, { signal });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const json = await res.json();
+      const list: unknown = (json && (json.data ?? json.results ?? json.items)) ?? json;
+      const parsed = Array.isArray(list) ? (list as TDetailCard[]) : [];
+
+      setItems(parsed.length > 0 ? parsed : mockData);
+    } catch (err) {
+      // fetch가 취소된 경우는 조용히 무시
+      if ((err as any)?.name === 'AbortError') return;
+      console.error('fetch error, fallback to mockData:', err);
+      setItems(mockData);
+    }
+  };
+
   useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [handleClose]);
+    const ac = new AbortController();
+    fetchDetailInfo(ac.signal);
+    return () => ac.abort();
+  }, []);
+
+  const count = items.length > 0 ? items.length : mockData.length;
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="상세 모달"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4"
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[960px] bg-transparent"
-      >
-        <CloseIcon
-          className="absolute -top-7 right-12 flex items-center justify-center cursor-pointer z-[60]"
-          onClick={handleClose}
-        />
-        <Swiper itemList={items} defaultIdx={selectedIndex} />
-      </div>
-    </div>
-  );
-};
+    <>
+      <h2>흑도야지</h2>
 
-export default DetailModal;
+      <Button onClick={handleOpenModal}>모달 열기 테스트 ({count}개 항목)</Button>
+
+      {isModalOpen && <DetailModal data={items} selectedIndex={1} onClose={handleCloseModal} />}
+    </>
+  );
+}
+
+export default DetailModal1;
