@@ -1,27 +1,35 @@
-# 1단계: 빌드
-FROM node:20.19
+# ----------------------
+# 1단계: Build Stage
+# ----------------------
+FROM node:20-alpine AS builder
 
-WORKDIR /src
+# pnpm 설치
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# 패키지 설치
+WORKDIR /app
+# 종속성 설치 (캐시 최적화)
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+# 소스 복사 및 빌드
 COPY . .
-RUN npm install
+RUN pnpm build
 
-# 소스 복사 후 빌드
-#COPY k8s .
-RUN npm run build
 
-## 2단계: Nginx를 이용해 정적 파일 서빙
-#FROM nginx:alpine
-#
-## Nginx 설정 덮어쓰기 (필요 시)
-##COPY nginx.conf /etc/nginx/nginx.conf
-#
-## React Vite 빌드 결과물 복사
-#COPY --from=build /app/dist /usr/share/nginx/html
-#
-## Kubernetes에서 외부로 노출할 포트
-#EXPOSE 3000
-#
-## Nginx 포그라운드 실행
-#CMD ["nginx", "-g", "daemon off;"]
+# ----------------------
+# 2단계: Production Stage
+# ----------------------
+FROM nginx:stable-alpine AS runner
+
+# nginx 기본 설정 제거
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+# 빌드 결과물 복사
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# 컨테이너가 80포트 노출
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
