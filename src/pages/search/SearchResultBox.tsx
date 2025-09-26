@@ -39,7 +39,7 @@ const SearchResultBox = ({ info }: SearchResultBoxProps) => {
       </div>
 
       {/* Title */}
-      <div className="font-['Pretendard'] font-medium text-[16px] text-black tracking-[-0.1px] leading-[24px] w-full h-[52px]">
+      <div className="font-medium text-[16px] text-black tracking-[-0.1px] leading-[24px] w-full h-[52px]">
         {info.title}
       </div>
     </div>

@@ -18,9 +18,9 @@ const OptionGroup: FC<IProps> = ({
   onToggle,
 }) => {
   return (
-    <div className="mb-5">
+    <div className="mb-2">
       <Text typography="heading6">{groupName}</Text>
-      <HStack gap={'$150'} className="mt-1">
+      <HStack gap={'$100'} className="mt-1">
         {values.map((value) => (
           <OptionSelector
             key={value}

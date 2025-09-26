@@ -11,6 +11,16 @@
 @import '@vapor-ui/core/tailwind.css';
 
 @font-face {
+  font-family: AppleMyungjo;
+  src: local('Apple SD Gothic Neo'), local('Nanum Gothic');
+}
+
+@font-face {
+  font-family: sans-serif;
+  src: local('Apple SD Gothic Neo'), local('Nanum Gothic');
+}
+
+@font-face {
   font-family: 'Pretndard';
   src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 }

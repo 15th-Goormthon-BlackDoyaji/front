@@ -12,9 +12,9 @@ const CompletedComponent = () => {
     <VStack gap="$200" justifyContent="center" alignItems="center" height="100%">
       <div className="flex flex-col items-center justify-center flex-1 h-full">
         <Text typography="heading2" className="text-center">
-          구독하기를 완료했습니다!
+          구독을 완료했습니다!
           <br />
-          맞춤형 뉴스레터를 확인해보세요.
+          뉴스레터를 확인해보세요.
         </Text>
       </div>
       <div className="flex flex-col px-[20px] mb-[40px] w-full">

@@ -17,9 +17,9 @@ const SearchResult = () => {
   return (
     <>
       <VStack gap="$250" height="100%">
-        <HStack padding="$150" justifyContent="space-between" gap="$075">
+        <HStack padding="$150" justifyContent="space-between" alignItems="center" gap="$075">
           <Link to="/search">
-            <ChevronLeftOutlineIcon size={32} />
+            <ChevronLeftOutlineIcon size={32} className="text-black" />
           </Link>
           <TextInput
             disabled

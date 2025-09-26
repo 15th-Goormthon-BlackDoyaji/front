@@ -71,7 +71,7 @@ const InviteEmailComponent: FC<IProps> = ({ selected, onBack, onComplete }) => {
   };
 
   return (
-    <VStack paddingX="20px" className="bg-[#F7F7FA] h-screen flex justify-between pb-10">
+    <VStack paddingX="20px" className="bg-[#F7F7FA] h-full flex justify-between pb-10">
       <VStack>
         <NavbarComponent beforeOnClick={onBack} step={2} />
         <TitleAreaComponent

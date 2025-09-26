@@ -17,9 +17,9 @@ const HomeTitle = () => {
       </Badge>
 
       <Text typography="heading2">
-        제주 교육 뉴스레터가
+        제주 교육 뉴스레터를
         <br />
-        이만큼 쌓여있어요!
+        확인해보세요
       </Text>
     </VStack>
   );
