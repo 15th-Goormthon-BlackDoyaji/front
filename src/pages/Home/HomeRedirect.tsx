@@ -74,7 +74,7 @@ const HomeRedirect = () => {
 
         setInfos(processedInfos);
 
-        if (processedInfos.length === 15) {
+        if (userId && processedInfos.length === 15) {
           localStorage.setItem('filtered', 'true');
         }
       } catch (error) {

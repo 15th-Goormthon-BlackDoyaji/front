@@ -23,7 +23,7 @@ const LogoIntroPage = () => {
       alignItems="center"
       justifyContent="space-around"
       className={[
-        'h-full w-full bg-white',
+        'h-full w-full bg-[#f7f7f7]',
         'transition-opacity duration-500 ease-out',
         isFading ? 'opacity-0' : 'opacity-100',
       ].join(' ')}

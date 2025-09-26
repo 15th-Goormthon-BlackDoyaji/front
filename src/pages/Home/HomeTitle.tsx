@@ -16,7 +16,7 @@ const HomeTitle = () => {
         {getCurrentDate()}
       </Badge>
 
-      <Text typography="heading2">
+      <Text typography="heading2" className="text-center">
         제주 교육 뉴스레터를
         <br />
         확인해보세요
