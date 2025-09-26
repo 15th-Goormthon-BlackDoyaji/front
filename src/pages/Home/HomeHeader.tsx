@@ -1,6 +1,5 @@
 import { HStack } from '@vapor-ui/core';
-import SearchIcon from '../../components/home/SearchIcon';
-import SubsIcon from '../../components/home/SubsIcon';
+import { CreditCardOutlineIcon, SearchOutlineIcon } from '@vapor-ui/icons';
 import { useNavigate } from 'react-router-dom';
 
 const HomeHeader = () => {
@@ -17,11 +16,19 @@ const HomeHeader = () => {
       margin="$100"
     >
       <div>
-        <SearchIcon onClick={() => navigate('/search')} />
+        <SearchOutlineIcon
+          size="28px"
+          onClick={() => navigate('/search')}
+          className="text-v-gray-500"
+        />
       </div>
       {!userId && (
         <div>
-          <SubsIcon onClick={() => navigate('/subscription')} />
+          <CreditCardOutlineIcon
+            size="28px"
+            onClick={() => navigate('/subscription')}
+            className="text-v-gray-500"
+          />
         </div>
       )}
     </HStack>
